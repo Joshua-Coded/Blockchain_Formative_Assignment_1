@@ -187,12 +187,6 @@ Validates the chain before adding blocks, ensuring integrity.
 Stores blocks in a dynamic array, resized as needed.
 Provides a menu-driven interface for dynamic user interaction.
 The code is modular, with separate files for SHA-256, block, and blockchain logic, enhancing reusability and clarity.
-Submission Compliance
-This project meets all requirements for Assignment 1, Task 2:
-Block Structure: Includes index, timestamp, data, previous hash, and current hash.
-Functions: Implements calculate_block_hash and validate_blockchain.
-Simulation: Supports dynamic block addition with validation via an interactive menu.
-Structure: Organized with src and headers directories, with detailed comments.
 
 
 References

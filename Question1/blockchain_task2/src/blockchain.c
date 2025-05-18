@@ -17,12 +17,12 @@ void init_blockchain(Blockchain *chain) {
 }
 
 /*
- * Adds a block to the blockchain after validating the current chain.
+ * Adds a block with the given data to the blockchain after validating the current chain.
  * Resizes the block array if necessary.
  */
-void add_block(Blockchain *chain, Block *block) {
-    if (!validate_blockchain(chain)) {
-        printf("Cannot add block: Blockchain is invalid\n");
+void add_block(Blockchain *chain, const char *data) {
+    if (chain->size > 0 && !validate_blockchain(chain)) {
+        printf("Cannot add block: Blockchain is invalid!\n");
         return;
     }
 
@@ -34,7 +34,14 @@ void add_block(Blockchain *chain, Block *block) {
             exit(1);
         }
     }
-    chain->blocks[chain->size++] = *block;
+
+    Block *new_block = &chain->blocks[chain->size];
+    uint32_t index = chain->size;
+    const char *prev_hash = (chain->size == 0) ? "0" : chain->blocks[chain->size - 1].hash;
+    init_block(new_block, index, prev_hash);
+    strncpy(new_block->data, data, DATA_SIZE);
+    calculate_block_hash(new_block); // Recalculate hash with new data
+    chain->size++;
 }
 
 /*
@@ -55,6 +62,10 @@ int validate_blockchain(const Blockchain *chain) {
         }
         if (i > 0 && strcmp(block->previous_hash, chain->blocks[i-1].hash) != 0) {
             printf("Invalid previous hash for block %u\n", block->index);
+            return 0;
+        }
+        if (i == 0 && strcmp(block->previous_hash, "0") != 0) {
+            printf("Invalid previous hash for genesis block\n");
             return 0;
         }
     }

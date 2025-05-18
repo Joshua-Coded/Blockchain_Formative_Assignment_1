@@ -130,6 +130,4 @@ The code is simple, well-documented, and focused on the block structure, laying 
 References
 NIST FIPS 180-4: Secure Hash Standard (SHS), defining SHA-256.
 C Standard Library documentation for malloc, time, etc.
-Course materials on blockchain data structures.
-For questions or issues, contact the course instructor or TA. This implementation provides a solid foundation for understanding blockchain blocks.
 ```

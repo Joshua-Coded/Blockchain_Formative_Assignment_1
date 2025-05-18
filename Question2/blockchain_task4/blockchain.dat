@@ -1,0 +1,21 @@
+2
+1747567037
+1
+Alice sends 2 BTC to Frank
+7265b7e1db4faac3025da2f50a340c9b8f192e4ef0ef0cfa32d836f5f405d0fd
+10dd7bef4cea3e3682d044d9ac4b5ba7b2ca1cb44392954732c7745698101187
+1
+1747567037
+3
+Charlie sends 3 BTC to Dave
+Dave sends 1 BTC to Eve
+Eve sends 0.5 BTC to Alice
+3a04f85cc7c3c6203ee9c51ab8f6b67813b77d325d8ae7afa2ade81b4f072269
+7265b7e1db4faac3025da2f50a340c9b8f192e4ef0ef0cfa32d836f5f405d0fd
+0
+1747567037
+2
+Alice sends 10 BTC to Bob
+Bob sends 5 BTC to Charlie
+0
+3a04f85cc7c3c6203ee9c51ab8f6b67813b77d325d8ae7afa2ade81b4f072269

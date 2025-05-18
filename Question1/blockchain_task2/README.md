@@ -192,6 +192,4 @@ The code is modular, with separate files for SHA-256, block, and blockchain logi
 References
 NIST FIPS 180-4: Secure Hash Standard (SHS), defining SHA-256.
 C Standard Library documentation for malloc, time, scanf, etc.
-Course materials on blockchain and cryptographic hashing.
-For questions or issues, contact the course instructor or TA. This dynamic simulation demonstrates blockchain integrity using SHA-256 hashing with user interaction.
 ```

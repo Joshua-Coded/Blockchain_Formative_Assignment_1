@@ -12,21 +12,20 @@ void init_blockchain(Blockchain *chain) {
 }
 
 /*
- * Adds a block to the blockchain with the given data.
- * Links the new block to the previous block's hash.
+ * Adds a block with the given data to the blockchain.
+ * Creates a new block, sets its previous hash, and links it.
  */
 void add_block(Blockchain *chain, const char *data) {
     Block *new_block = malloc(sizeof(Block));
     if (!new_block) {
         printf("Memory allocation failed\n");
-        exit(1);
+        return;
     }
 
-    // Determine previous hash
-    char *prev_hash = chain->size == 0 ? "0" : chain->head->hash;
-    init_block(new_block, chain->size, data, prev_hash);
-
-    // Add to linked list
+    uint32_t index = chain->size;
+    const char *prev_hash = (chain->head == NULL) ? "0" : chain->head->hash;
+    init_block(new_block, index, data, prev_hash);
+    
     new_block->next = chain->head;
     chain->head = new_block;
     chain->size++;
@@ -36,11 +35,16 @@ void add_block(Blockchain *chain, const char *data) {
  * Validates the blockchain by checking:
  * 1. Each block's hash matches its calculated hash.
  * 2. Each block's previous hash matches the actual previous block's hash.
+ * Since blocks are added to the head, the list is in reverse order (newest first).
  * Returns 1 if valid, 0 otherwise.
  */
 int validate_blockchain(const Blockchain *chain) {
     Block *current = chain->head;
-    Block *prev = NULL;
+    Block *next = NULL;
+
+    if (current == NULL) {
+        return 1; // Empty chain is valid
+    }
 
     while (current != NULL) {
         // Verify current block's hash
@@ -53,12 +57,17 @@ int validate_blockchain(const Blockchain *chain) {
         }
 
         // Verify previous hash
-        if (prev != NULL && strcmp(current->previous_hash, prev->hash) != 0) {
-            printf("Invalid previous hash for block %u\n", current->index);
+        next = current->next;
+        if (next != NULL && strcmp(next->hash, current->previous_hash) != 0) {
+            printf("Invalid previous hash for block %u\n", next->index);
+            return 0;
+        }
+        // For genesis block, ensure previous_hash is "0"
+        if (current->index == 0 && strcmp(current->previous_hash, "0") != 0) {
+            printf("Invalid previous hash for genesis block\n");
             return 0;
         }
 
-        prev = current;
         current = current->next;
     }
     return 1;
